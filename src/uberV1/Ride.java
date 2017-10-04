@@ -44,4 +44,8 @@ public class Ride {
 		return 12;
 	}
 	
+	public void info(){
+		//prints travel time, price, estimated wait, status 
+	}
+	
 }
