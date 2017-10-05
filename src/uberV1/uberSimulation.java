@@ -2,7 +2,7 @@ package uberV1;
 
 public class uberSimulation {
 	public static void main(String[] args){
-		Int gridMax = 100;  //This should be somewhere else
+		int gridMax = 100;  //This should be somewhere else
 		Ride temp;
 		Manager manager = new Manager();
 		Client jeff = new Client(manager,"Jeff",100);

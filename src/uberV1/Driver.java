@@ -6,12 +6,12 @@ public class Driver extends User{
 	private ArrayList<Double> ratings;
 	
 	public Driver(Manager manager, String name, double balance, double rating){
-            this.super(manager,name,balance);
+            super(manager,name,balance);
             ratings.add(rating);
 	}
 	
 	public Driver(Manager manager, String name, double balance, double rating, int[] location){
-           this.super(manager,name,balance,location);
+           super(manager,name,balance,location);
            ratings.add(rating);
 	}
 	

@@ -15,7 +15,7 @@ public class Client extends User{
          * @param balance the client's intial balance
          */
         public Client(Manager manager, String name, double balance){
-           this.super(manager,name,balance);
+           super(manager,name,balance);
 	}
 
         /**
@@ -27,7 +27,7 @@ public class Client extends User{
          * @param location the client's intial location
          */
 	public Client(Manager manager, String name, double balance, int[] location){
-           this.super(manager,name,balance,location);
+           super(manager,name,balance,location);
 	}
 	
 	public void request(int[] destination){
