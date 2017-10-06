@@ -21,6 +21,22 @@ public class User{
       this.location = location;
    }
 
+   public double getBal(){
+      return balance;
+   }
+
+   public boolean updateBal(String operator, double amount){
+      if(operator.equals("add")){
+         balance+= amount;
+         return true;
+      }   
+      if(balance < amount){
+         return false;
+      }
+      balance -= amount;
+      return true;
+   }
+
    public int[] getLocation(){
       return location;
    }
