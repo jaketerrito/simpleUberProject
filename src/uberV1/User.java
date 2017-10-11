@@ -1,26 +1,35 @@
 package uberV1;
 
+import java.util.Random;
+import java.awt.Point;
+
 public class User{
    protected String name;
-   protected int[] location;
+   protected Point location;
    protected double balance;
    protected Manager manager;
    protected Ride currentRide;
+   private int GRIDMAX = 300;
 
    public User(Manager manager, String name, double balance){
       this.manager = manager;
       this.name = name;
       this.balance = balance;
-      // need random this.location = sumtin;
+      Random rand = new Random();
+      location = new Point(rand.nextInt(GRIDMAX),rand.nextInt(GRIDMAX));
    }
 
-   public User(Manager manager, String name, double balance, int[] location){
+   public User(Manager manager, String name, double balance, Point location){
       this.manager = manager;
       this.name = name;
       this.balance = balance;
       this.location = location;
    }
-
+   
+   public String getName(){
+	   return name;
+   }
+   
    public double getBal(){
       return balance;
    }
@@ -37,11 +46,11 @@ public class User{
       return true;
    }
 
-   public int[] getLocation(){
+   public Point getLocation(){
       return location;
    }
 
-   public void setLocation(int[] location){
+   public void setLocation(Point location){
       this.location = location;
    }
 

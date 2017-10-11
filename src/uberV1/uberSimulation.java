@@ -1,8 +1,7 @@
 package uberV1;
-
+import java.awt.Point;
 public class uberSimulation {
 	public static void main(String[] args){
-		int gridMax = 100;  //This should be somewhere else
 		Ride temp;
 		Manager manager = new Manager();
 		Client jeff = new Client(manager,"Jeff",100);
@@ -16,11 +15,10 @@ public class uberSimulation {
 		manager.addDriver(amber);
 		manager.addDriver(arnold);
 		
-		jeff.request(new int[]{1,2});
+		jeff.request(new Point(1,2));
 		jeff.getRide().info();
-		
-		
-		
-		
+		//wait some time for their locations to update
+		//jeff rates the driver
+		System.out.println("YOLO");
 	}
 }

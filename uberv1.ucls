@@ -3,7 +3,7 @@
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
   <class id="1" language="java" name="uberV1.Client" project="project1" file="/project1/src/uberV1/Client.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="163" y="119"/>    
+    <position height="-1" width="-1" x="573" y="58"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,7 +12,7 @@
   </class>  
   <class id="2" language="java" name="uberV1.Driver" project="project1" file="/project1/src/uberV1/Driver.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="574" y="461"/>    
+    <position height="-1" width="-1" x="1192" y="446"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -21,7 +21,7 @@
   </class>  
   <class id="3" language="java" name="uberV1.Manager" project="project1" file="/project1/src/uberV1/Manager.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="165" y="461"/>    
+    <position height="-1" width="-1" x="259" y="473"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -30,41 +30,74 @@
   </class>  
   <class id="4" language="java" name="uberV1.Ride" project="project1" file="/project1/src/uberV1/Ride.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="576" y="121"/>    
+    <position height="-1" width="-1" x="1026" y="141"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <association id="5">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="6" name="manager"/>      
-      <multiplicity id="7" minimum="0" maximum="1"/>    
+  <class id="5" language="java" name="uberV1.User" project="project1" file="/project1/src/uberV1/User.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="659" y="475"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="6">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="7">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <association id="8">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="9" name="manager">        
+        <position height="0" width="0" x="147" y="-14"/>      
+      </attribute>      
+      <multiplicity id="10" minimum="0" maximum="1">        
+        <position height="0" width="0" x="147" y="-14"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="3" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="8">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="9" name="client"/>      
-      <multiplicity id="10" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="1" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="11">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="12" name="manager"/>      
-      <multiplicity id="13" minimum="0" maximum="1"/>    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="12" name="currentRide">        
+        <position height="0" width="0" x="129" y="-3"/>      
+      </attribute>      
+      <multiplicity id="13" minimum="0" maximum="1">        
+        <position height="0" width="0" x="129" y="-3"/>      
+      </multiplicity>    
     </end>    
-    <end type="TARGET" refId="3" navigable="true"/>    
+    <end type="TARGET" refId="4" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <association id="14">    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="15" name="driver"/>      
-      <multiplicity id="16" minimum="0" maximum="1"/>    
+      <attribute id="15" name="client">        
+        <position height="0" width="0" x="410" y="-61"/>      
+      </attribute>      
+      <multiplicity id="16" minimum="0" maximum="1">        
+        <position height="0" width="0" x="410" y="-61"/>      
+      </multiplicity>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="17">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="18" name="driver">        
+        <position height="0" width="0" x="618" y="-15"/>      
+      </attribute>      
+      <multiplicity id="19" minimum="0" maximum="1">        
+        <position height="0" width="0" x="618" y="-15"/>      
+      </multiplicity>    
     </end>    
     <end type="TARGET" refId="2" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
