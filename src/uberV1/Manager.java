@@ -6,7 +6,7 @@ public class Manager {
 	private HashMap<String,Driver> drivers = new HashMap<String,Driver>();
 	private HashMap<String,Client> clients = new HashMap<String,Client>();
 	private ArrayList<Ride> rides = new ArrayList<Ride>();
-	
+	protected Point tempPoint; //for sorting
 	/**
 	 * Initializes manager with out any users.
 	 */
@@ -40,19 +40,57 @@ public class Manager {
 		return drivers.get(name);
 	}
 	
+	private class comparator implements Comparator<Driver>{
+		public int compare(Driver a,Driver b){
+			return (int)(a.distance(tempPoint) - b.distance(tempPoint));
+		}
+	}
+	
 	public Ride receiveRequest(Client client, Point destination){
 		Ride ride = new Ride(destination, client);
-		//createQueue
-		//request everyone in queue
-		//ride addDriver(driver
-		//set ride for driver
+		
+		//creates queue of available drivers sorted by distance from the client
+		Driver driver;
+		PriorityQueue<Driver> list = new PriorityQueue<Driver>(drivers.size(),new comparator());
+		tempPoint = destination;
+		for(String name: drivers.keySet()){
+			driver = drivers.get(name);
+			if(!(driver.isAvailable())){
+				continue;
+			}
+			list.add(driver);
+		}
+		if(list.size() == 0){
+			System.out.printf("No available drivers.");
+			return null;
+		}
+		
+		//requests everyone in queue
+		Scanner scanner = new Scanner(System.in);
+		while(!(list.poll().handleRequest(ride, scanner))){
+			if(list.size() == 0){
+				System.out.printf("No available drivers.");
+				return null;
+			}
+		}
+		
 		//charge client, handle if low balance
+		if(!transaction(ride)){
+			ride.endRide();
+			return null;
+		}
+		
+		scanner.close();
 		return ride; //sends to client
 	}
 	
 	public boolean transaction(Ride ride){
-		//return false if client balance is too low
-		//otherwise charge client and give driver their share.
+		if(ride.getClient().getBal() < ride.getPrice()){
+			System.out.printf("Insufficient funds.");
+			return false;
+		}
+		ride.getClient().updateBal(-1 * ride.getPrice());
+		ride.getDriver().updateBal(ride.getPrice() * .75);
 		return true;
 	}
 	

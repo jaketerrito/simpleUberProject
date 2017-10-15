@@ -2,13 +2,14 @@ package uberV1;
 
 import java.util.Random;
 import java.awt.Point;
+import java.lang.Math;
 
 public class User{
    protected String name;
    protected Point location;
    protected double balance;
    protected Manager manager;
-   protected Ride currentRide;
+   protected Ride currentRide = null;
    private int GRIDMAX = 300;
 
    public User(Manager manager, String name, double balance){
@@ -34,16 +35,8 @@ public class User{
       return balance;
    }
 
-   public boolean updateBal(String operator, double amount){
-      if(operator.equals("add")){
-         balance+= amount;
-         return true;
-      }   
-      if(balance < amount){
-         return false;
-      }
-      balance -= amount;
-      return true;
+   public void updateBal(double amount){
+	   balance+= amount;
    }
 
    public Point getLocation(){
@@ -55,11 +48,18 @@ public class User{
    }
 
    public Ride getRide(){
-      return currentRide;
+	   if(currentRide == null){
+		   System.out.printf("No ride yet.\n");
+	   }
+	   return currentRide;
    }
 
    public void setRide(Ride ride){
       this.currentRide = ride;
    }
-
+   
+	public double distance(Point a){
+		return Math.hypot(a.getX() - location.getX(), a.getY() - location.getY());
+	}
+	
 }

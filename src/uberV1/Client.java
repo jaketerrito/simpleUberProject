@@ -1,5 +1,7 @@
 package uberV1;
+
 import java.awt.Point;
+
 /**
  * The client using the uber app.
  * @author jterrito

@@ -32,13 +32,30 @@ public class Driver extends User{
 	}
 	
 	/**
-	 * Passed a ride request and either accepts or declines the request.
+	 * Passed a ride request with input method to determine driver's response to request.
+	 * @param ride the current ride to view
 	 * @return whether or not the ride was accepted.
 	 */
-	public boolean handleRequest(){
-		//return true if accepts ride (driver would you like to accept this ride?y/n
-		//return false otherwise
+	public boolean handleRequest(Ride ride, Scanner scanner){
+		if(currentRide != null){
+			System.out.printf("Driver already has a ride, something is wrong in this code.");
+			return false;
+		}
+		System.out.println("Do you accept ride?(y/n)\n");
+		if(scanner.nextLine().equals("y")){
+			scanner.close();
+			available = false;
+			ride.addDriver(this);
+			currentRide = ride;
+			return true;
+		} 
+		// maybe add feature in case it isn't "n"
+		scanner.close();
 		return false;
+	}
+	
+	public boolean isAvailable(){
+		return available;
 	}
 	
 	/**
@@ -54,8 +71,11 @@ public class Driver extends User{
 	 * @return average of all past ratings.
 	 */
 	public double getRating(){
-		//average of all ratings
-		return 1;
+		double total = 0;
+		for(double rating : ratings){
+			total += rating;
+		}
+		return total/(ratings.size());
 	}
 	
 }

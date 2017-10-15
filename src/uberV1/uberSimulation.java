@@ -1,8 +1,9 @@
 package uberV1;
 import java.awt.Point;
+import java.lang.NullPointerException;
+
 public class uberSimulation {
 	public static void main(String[] args){
-		Ride temp;
 		Manager manager = new Manager();
 		Client jeff = new Client(manager,"Jeff",100);
 		Driver charlene = new Driver(manager,"Charlene",0,4.2);
@@ -16,7 +17,9 @@ public class uberSimulation {
 		manager.addDriver(arnold);
 		
 		jeff.request(new Point(1,2));
-		jeff.getRide().info();
+		try{
+			jeff.getRide().info();
+		}catch(NullPointerException e){}
 		//wait some time for their locations to update
 		//jeff rates the driver
 		System.out.println("YOLO");

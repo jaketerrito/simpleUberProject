@@ -4,3 +4,7 @@ TAKE PICTURES OF THE ASSIGNMENT, STOP FORGETTING IT AT HOME
 -look into mongoDB or other logging tool
 -maybe a little bit of graphical interface for fun?
 -arrrived at pick up feature
+-when ride ends reset currentride to null
+-do i even need ongoing?
+-handle negeative price(error and no driver)
+-handle no available drivers

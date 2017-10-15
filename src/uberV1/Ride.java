@@ -1,7 +1,6 @@
 package uberV1;
 
 import java.awt.Point;
-import java.lang.Math;
 
 /**
  * Information about the current ride.
@@ -9,11 +8,11 @@ import java.lang.Math;
  *
  */
 public class Ride {
-	private Point destination;
-	private Client client;
-	private Driver driver;
-	private boolean ongoing;
-	private double price;
+	private Point destination = null;
+	private Client client = null;
+	private Driver driver = null;
+	private boolean ongoing = false;
+	private double price = -1;
 	private double RATE = 2.5;
 	private double TIME = 10;
 	
@@ -24,7 +23,7 @@ public class Ride {
 	
 	public void addDriver(Driver driver){
 		this.driver = driver;
-		price = distance(driver.getLocation(),client.getLocation()) + distance(client.getLocation(),destination) * RATE;
+		price = (driver.distance(client.getLocation()) + client.distance(destination)) * RATE;
 	}
 	
 	
@@ -32,29 +31,44 @@ public class Ride {
 		this.ongoing = ongoing;
 	}
 	
+	public Driver getDriver(){
+		return driver;
+	}
+	
+	public Client getClient(){
+		return client;
+	}
+	
 	public boolean getStatus(){
 		return ongoing;
 	}
 	
 	public double estimateWait(){
-		return travelTime(driver.getLocation(),client.getLocation());
+		return driver.distance(client.getLocation()) * TIME;
 	}
 	
-	public double distance(Point a, Point b){
-		return Math.hypot(a.getX() - b.getX(), a.getY() - b.getY());
+	public double estimateTravelTime(){
+		return client.distance(destination) * TIME;
 	}
 	
-	public double travelTime(Point a, Point b){
-		return distance(a,b) * TIME;
-	}
-	
-	// only works initially
-	public double price(){
+	public double getPrice(){
+		if(driver == null){
+			System.out.printf("No driver assigned.");
+		}
 		return price;
 	}
 	
 	public void info(){
-		System.out.printf("Driver: %s \nClient: %s \nPrice: %d \n Estimated Wait %d \nRemaining Time: %d", driver.getName(), client.getName(), price(), estimateWait(),travelTime(client.getLocation(),destination));
+		if(driver == null){
+			System.out.printf("Client: %s \nPrice: %d \n Estimated Wait %d \nRemaining Time: %d", client.getName(), getPrice(), estimateTravelTime());
+		} else {
+		System.out.printf("Driver: %s \nClient: %s \nPrice: %d \n Estimated Wait %d \nRemaining Time: %d", driver.getName(), client.getName(), getPrice(), estimateWait(),estimateTravelTime());
+		}
 	}
 	
+	public void endRide(){
+		driver.setRide(null);
+		client.setRide(null);
+		ongoing = false;
+	}
 }
