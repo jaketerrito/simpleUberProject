@@ -95,13 +95,17 @@ public class Manager {
 	}
 	
 	public void checkRides(){
-		//sees if rides are still ongoing
-		//if ended prompt user for a rating.
-		//update location of client and driver
+		for(Ride ride: rides){
+			if(!(ride.getStatus())){
+				getRating(ride);
+				ride.endRide();
+				rides.remove(ride);
+			}
+		}
 	}
 	
 	public void getRating(Ride ride){
-		//requests rating from a client
-		//updates rating of driver
+		Scanner scanner = new Scanner(System.in);
+		ride.getClient().rate(ride.getDriver(), scanner);
 	}
 }

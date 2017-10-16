@@ -19,6 +19,7 @@ public class Ride {
 	public Ride(Point destination, Client client){
 		this.destination = destination;
 		this.client = client;
+		price = (client.distance(destination) * RATE);
 	}
 	
 	public void addDriver(Driver driver){
@@ -58,12 +59,11 @@ public class Ride {
 		return price;
 	}
 	
-	public void info(){
+	public String info(){
 		if(driver == null){
-			System.out.printf("Client: %s \nPrice: %d \n Estimated Wait %d \nRemaining Time: %d", client.getName(), getPrice(), estimateTravelTime());
-		} else {
-		System.out.printf("Driver: %s \nClient: %s \nPrice: %d \n Estimated Wait %d \nRemaining Time: %d", driver.getName(), client.getName(), getPrice(), estimateWait(),estimateTravelTime());
+			return String.format("Client: %s \nPrice: %.2f \nTime to Destination: %.2f\n", client.getName(), getPrice(), estimateTravelTime());
 		}
+		return String.format("Driver: %s \nClient: %s \nPrice: %.2f \n Estimated Wait %.2f \nTime to Destination: %.2f\n", driver.getName(), client.getName(), getPrice(), estimateWait(),estimateTravelTime());
 	}
 	
 	public void endRide(){

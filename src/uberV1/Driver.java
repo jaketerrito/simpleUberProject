@@ -4,18 +4,18 @@ import java.awt.Point;
 
 public class Driver extends User{
 	private boolean available;
-	private ArrayList<Double> ratings;
+	private ArrayList<Double> ratings = new ArrayList<Double>();
 	
 	/**
 	 * Initializes driver at a random location.
 	 * @param manager the manager for this driver.
 	 * @param name the driver's name.
 	 * @param balance the driver's balance.
-	 * @param rating the driver's rating.
+	 * @param ratings the driver's ratings.
 	 */
-	public Driver(Manager manager, String name, double balance, double rating){
+	public Driver(Manager manager, String name, double balance, ArrayList<Double> ratings){
             super(manager,name,balance);
-            ratings.add(rating);
+            this.ratings = ratings;
 	}
 	
 	/**
@@ -23,12 +23,12 @@ public class Driver extends User{
 	 * @param manager the manager for this driver.
 	 * @param name the driver's name.
 	 * @param balance the driver's balance.
-	 * @param rating the driver's rating.
+	 * @param ratings the driver's ratings.
 	 * @param location the driver's starting location.
 	 */
-	public Driver(Manager manager, String name, double balance, double rating, Point location){
+	public Driver(Manager manager, String name, double balance, ArrayList<Double> ratings, Point location){
            super(manager,name,balance,location);
-           ratings.add(rating);
+           this.ratings = ratings;
 	}
 	
 	/**

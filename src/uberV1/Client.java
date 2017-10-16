@@ -1,6 +1,7 @@
 package uberV1;
 
 import java.awt.Point;
+import java.util.Scanner;
 
 /**
  * The client using the uber app.
@@ -36,6 +37,12 @@ public class Client extends User{
 	 */
 	public void request(Point destination){
 		this.currentRide = manager.receiveRequest(this, destination);
+	}
+	
+	public void rate(Driver driver,Scanner scanner){
+		System.out.printf("Please give a rating for your driver, %s.(0.0-5.0)\n",driver.getName());
+		//make sure that it is a valid response
+		driver.addRating(scanner.nextDouble());
 	}
 	
 }
