@@ -8,10 +8,10 @@ TAKE PICTURES OF THE ASSIGNMENT, STOP FORGETTING IT AT HOME
 -do i even need ongoing?
 -handle negeative price(error and no driver)
 -handle no available drivers
--MAKE SURE DESTINATION IS WITHIN BOUNDRY
--add rating comparison incase driver distance is equal
 -specify who is being alerted with each print(or is there some other method for alerting people?)
 -passenger needs to be alerted when driver accepts ride, transaction, driver on route/wait time,driver arrived(add this in check rides)
 -input from text file
 -randomized trips
 -MONGODB! for 5 trips
+
+-can ride set users ride to null?

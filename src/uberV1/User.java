@@ -10,7 +10,7 @@ public class User{
    protected double balance;
    protected Manager manager;
    protected Ride currentRide = null;
-   private int GRIDMAX = 300;
+   protected int GRIDMAX = 300;
 
    public User(Manager manager, String name, double balance){
       this.manager = manager;

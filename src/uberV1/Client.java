@@ -36,6 +36,10 @@ public class Client extends User{
 	 * @param destination the desired destination for the ride.
 	 */
 	public void request(Point destination){
+		if(destination.getY() > GRIDMAX || destination.getX() > GRIDMAX || destination.getX() < 0 || destination.getY() < 0){
+			System.out.printf("Invalid Request: Destination out of bounds.");
+			return;
+		}
 		this.currentRide = manager.receiveRequest(this, destination);
 	}
 	

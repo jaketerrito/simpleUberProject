@@ -6,11 +6,22 @@ public class Manager {
 	private HashMap<String,Driver> drivers = new HashMap<String,Driver>();
 	private HashMap<String,Client> clients = new HashMap<String,Client>();
 	private ArrayList<Ride> rides = new ArrayList<Ride>();
+	private Scanner scanner = new Scanner(System.in);
 	protected Point tempPoint; //for sorting
 	/**
 	 * Initializes manager with out any users.
 	 */
 	public Manager(){}
+	
+	public Manager(Scanner scanner){
+		this.scanner = scanner;
+	}
+	public Manager(HashMap<String,Driver> drivers, HashMap<String,Client> clients, ArrayList<Ride> rides, Scanner scanner){
+		this.drivers = drivers;
+		this.rides = rides;
+		this.clients = clients;
+		this.scanner = scanner;
+	}
 	
 	/**
 	 * Initializes manager with users and rides.
@@ -42,6 +53,9 @@ public class Manager {
 	
 	private class comparator implements Comparator<Driver>{
 		public int compare(Driver a,Driver b){
+			if(a.distance(tempPoint) == b.distance(tempPoint)){
+				return (int)(b.getRating() - a.getRating());
+			}
 			return (int)(a.distance(tempPoint) - b.distance(tempPoint));
 		}
 	}
@@ -61,15 +75,15 @@ public class Manager {
 			list.add(driver);
 		}
 		if(list.size() == 0){
-			System.out.printf("No available drivers.");
+			System.out.printf("%s: No available drivers.\n",client.getName());
 			return null;
 		}
 		
 		//requests everyone in queue
-		Scanner scanner = new Scanner(System.in);
+		//Scanner scanner = new Scanner(System.in);
 		while(!(list.poll().handleRequest(ride, scanner))){
 			if(list.size() == 0){
-				System.out.printf("No available drivers.");
+				System.out.printf("%s: No available drivers.\n",client.getName());
 				return null;
 			}
 		}
@@ -80,13 +94,13 @@ public class Manager {
 			return null;
 		}
 		
-		scanner.close();
+		//scanner.close();
 		return ride; //sends to client
 	}
 	
 	public boolean transaction(Ride ride){
 		if(ride.getClient().getBal() < ride.getPrice()){
-			System.out.printf("Insufficient funds.");
+			System.out.printf("%s: Insufficient funds.\n",ride.getClient().getName());
 			return false;
 		}
 		ride.getClient().updateBal(-1 * ride.getPrice());
@@ -95,17 +109,20 @@ public class Manager {
 	}
 	
 	public void checkRides(){
+		ArrayList<Ride> toRemove = new ArrayList<Ride>();
 		for(Ride ride: rides){
 			if(!(ride.getStatus())){
 				getRating(ride);
 				ride.endRide();
-				rides.remove(ride);
+				toRemove.add(ride);
 			}
+		}
+		for(Ride ride: toRemove){
+			rides.remove(ride);
 		}
 	}
 	
 	public void getRating(Ride ride){
-		Scanner scanner = new Scanner(System.in);
 		ride.getClient().rate(ride.getDriver(), scanner);
 	}
 }

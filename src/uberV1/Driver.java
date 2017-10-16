@@ -3,7 +3,7 @@ import java.util.*;
 import java.awt.Point;
 
 public class Driver extends User{
-	private boolean available;
+	private boolean available = true;
 	private ArrayList<Double> ratings = new ArrayList<Double>();
 	
 	/**
@@ -15,7 +15,9 @@ public class Driver extends User{
 	 */
 	public Driver(Manager manager, String name, double balance, ArrayList<Double> ratings){
             super(manager,name,balance);
-            this.ratings = ratings;
+            if(ratings != null){
+            	this.ratings = ratings;
+            }
 	}
 	
 	/**
@@ -28,8 +30,10 @@ public class Driver extends User{
 	 */
 	public Driver(Manager manager, String name, double balance, ArrayList<Double> ratings, Point location){
            super(manager,name,balance,location);
-           this.ratings = ratings;
-	}
+           if(ratings != null){
+           	this.ratings = ratings;
+           }
+    }
 	
 	/**
 	 * Passed a ride request with input method to determine driver's response to request.
@@ -41,16 +45,14 @@ public class Driver extends User{
 			System.out.printf("Driver already has a ride, something is wrong in this code.");
 			return false;
 		}
-		System.out.println("Do you accept ride?(y/n)\n");
+		System.out.printf("%s: Do you accept ride?(y/n)\n",name);
 		if(scanner.nextLine().equals("y")){
-			scanner.close();
 			available = false;
 			ride.addDriver(this);
 			currentRide = ride;
 			return true;
 		} 
 		// maybe add feature in case it isn't "n"
-		scanner.close();
 		return false;
 	}
 	

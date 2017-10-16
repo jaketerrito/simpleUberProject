@@ -25,6 +25,7 @@ public class Ride {
 	public void addDriver(Driver driver){
 		this.driver = driver;
 		price = (driver.distance(client.getLocation()) + client.distance(destination)) * RATE;
+		ongoing = true;
 	}
 	
 	
