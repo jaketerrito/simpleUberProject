@@ -19,6 +19,11 @@ public class Driver extends User{
             	this.ratings = ratings;
             }
 	}
+        
+        public Driver(Manager manager, String name, double balance, rating){
+            super(manager,name,balance);
+            ratings.add(rating);
+	}
 	
 	/**
 	 * Initializes Driver at a specified location.
@@ -45,7 +50,7 @@ public class Driver extends User{
 			System.out.printf("Driver already has a ride, something is wrong in this code.");
 			return false;
 		}
-		System.out.printf("%s: Do you accept ride?(y/n)\n",name);
+		System.out.printf("%s %s: Do you accept ride?(y/n)\n",ride.info(),name);
 		if(scanner.nextLine().equals("y")){
 			available = false;
 			ride.addDriver(this);

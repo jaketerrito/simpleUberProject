@@ -80,30 +80,30 @@ public class Manager {
 		}
 		
 		//requests everyone in queue
-		//Scanner scanner = new Scanner(System.in);
 		while(!(list.poll().handleRequest(ride, scanner))){
 			if(list.size() == 0){
 				System.out.printf("%s: No available drivers.\n",client.getName());
 				return null;
 			}
 		}
-		
+		System.out.printf("%s: Driver, %s, has accepted your request.\n",client.getName(),ride.getDriver().getName());
 		//charge client, handle if low balance
 		if(!transaction(ride)){
-			ride.endRide();
 			return null;
 		}
-		
-		//scanner.close();
+	        
+                System.out.printf("%s: Your driver is on their way.\n",client.getName());
 		return ride; //sends to client
 	}
 	
 	public boolean transaction(Ride ride){
 		if(ride.getClient().getBal() < ride.getPrice()){
-			System.out.printf("%s: Insufficient funds.\n",ride.getClient().getName());
+			System.out.printf("%s: Insufficient funds, ride cancelled.\n",ride.getClient().getName());
+                        ride.endRide();
 			return false;
 		}
 		ride.getClient().updateBal(-1 * ride.getPrice());
+                System.out.printf("%s: Account charged, %.2f.\n",ride.getClient.getName(),ride.getPrice());
 		ride.getDriver().updateBal(ride.getPrice() * .75);
 		return true;
 	}
@@ -112,12 +112,15 @@ public class Manager {
 		ArrayList<Ride> toRemove = new ArrayList<Ride>();
 		for(Ride ride: rides){
 			if(!(ride.getStatus())){
-				getRating(ride);
-				ride.endRide();
 				toRemove.add(ride);
 			}
+                        System.out.print(ride.info());
+                        //driver has arrived!
+                        //destination reached!
 		}
 		for(Ride ride: toRemove){
+			getRating(ride);
+			ride.endRide();
 			rides.remove(ride);
 		}
 	}
