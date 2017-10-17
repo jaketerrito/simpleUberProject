@@ -25,7 +25,8 @@ public class DriverTest {
 	@Test
 	public void testHandleRequestNo() {
 		Driver driver = new Driver(null, "KARL", 0, null);
-		Ride ride = new Ride(null,null);
+		Client client = new Client(null,null,0,new Point(0,23));
+		Ride ride = new Ride(new Point(0,231),client);
 		Scanner scanner = new Scanner("naw");
 		assertFalse(driver.handleRequest(ride,scanner));
 		scanner.close();
@@ -35,7 +36,8 @@ public class DriverTest {
 	@Test
 	public void testHandleRequestFail() {
 		Driver driver = new Driver(null, "KARL", 0, null);
-		Ride ride = new Ride(null,null);
+		Client client = new Client(null,null,0,new Point(0,23));
+		Ride ride = new Ride(new Point(0,24), client);
 		driver.setRide(ride);
 		assertFalse(driver.handleRequest(null,null));
 	}

@@ -20,7 +20,7 @@ public class Driver extends User{
             }
 	}
         
-        public Driver(Manager manager, String name, double balance, rating){
+        public Driver(Manager manager, String name, double balance, double rating){
             super(manager,name,balance);
             ratings.add(rating);
 	}
@@ -50,7 +50,8 @@ public class Driver extends User{
 			System.out.printf("Driver already has a ride, something is wrong in this code.");
 			return false;
 		}
-		System.out.printf("%s %s: Do you accept ride?(y/n)\n",ride.info(),name);
+		System.out.printf("%s: Do you accept ride?(y/n)\n",name);
+		//THIS questrion needs to be better
 		if(scanner.nextLine().equals("y")){
 			available = false;
 			ride.addDriver(this);

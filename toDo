@@ -1,17 +1,9 @@
 TAKE PICTURES OF THE ASSIGNMENT, STOP FORGETTING IT AT HOME
--Create main for demonstration
--Crerate Tests
--look into mongoDB or other logging tool
--maybe a little bit of graphical interface for fun?
--arrrived at pick up feature
--when ride ends reset currentride to null
--do i even need ongoing?
+-ADD more tests
+-simulation!
 -handle negeative price(error and no driver)
 -handle no available drivers
--specify who is being alerted with each print(or is there some other method for alerting people?)
--passenger needs to be alerted when driver accepts ride, transaction, driver on route/wait time,driver arrived(add this in check rides)
 -input from text file
 -randomized trips
--MONGODB! for 5 trips
-
--can ride set users ride to null?
+-MONGODB! for 5 trip
+-maybe a little bit of graphical interface for fun?

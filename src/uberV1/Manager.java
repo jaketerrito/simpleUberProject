@@ -86,13 +86,12 @@ public class Manager {
 				return null;
 			}
 		}
-		System.out.printf("%s: Driver, %s, has accepted your request.\n",client.getName(),ride.getDriver().getName());
+		System.out.printf("%s: Your driver,%s, has accepted your request.\n",client.getName(),ride.getDriver().getName());
 		//charge client, handle if low balance
 		if(!transaction(ride)){
 			return null;
 		}
-	        
-                System.out.printf("%s: Your driver is on their way.\n",client.getName());
+		rides.add(ride);
 		return ride; //sends to client
 	}
 	
@@ -103,7 +102,7 @@ public class Manager {
 			return false;
 		}
 		ride.getClient().updateBal(-1 * ride.getPrice());
-                System.out.printf("%s: Account charged, %.2f.\n",ride.getClient.getName(),ride.getPrice());
+        System.out.printf("%s: Account charged, %.2f.\n",ride.getClient().getName(),ride.getPrice());
 		ride.getDriver().updateBal(ride.getPrice() * .75);
 		return true;
 	}
@@ -111,16 +110,22 @@ public class Manager {
 	public void checkRides(){
 		ArrayList<Ride> toRemove = new ArrayList<Ride>();
 		for(Ride ride: rides){
-			if(!(ride.getStatus())){
-				toRemove.add(ride);
+			switch(ride.getStatus()){
+			case "DONE":   toRemove.add(ride);
+						   System.out.printf("%s: Driver has arrived.\n",ride.getClient().getName());
+						   getRating(ride);
+						   ride.endRide();
+						   break;
+			case "COMING": System.out.printf("%s: Driver on the way, estimated wait is %.2f.\n",ride.getClient().getName(),ride.estimateWait());
+						   break;
+			case "PICKUP": System.out.printf("%s: Driver has arrived, travel time is %.2f.\n", ride.getClient().getName(),ride.estimateTravelTime());
+						   break;
+			case "ENROUT": System.out.printf("%s: You are on your way, travel time is %.2f.\n", ride.getClient().getName(),ride.estimateTravelTime());
+						   break;
+			default:       break;
 			}
-                        System.out.print(ride.info());
-                        //driver has arrived!
-                        //destination reached!
 		}
 		for(Ride ride: toRemove){
-			getRating(ride);
-			ride.endRide();
 			rides.remove(ride);
 		}
 	}

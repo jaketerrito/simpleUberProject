@@ -78,7 +78,8 @@ public class ManagerTest {
 		assertTrue(rides.contains(ride));
 		assertEquals(driver.getRide(),ride);
 		assertEquals(client.getRide(),ride);
-		ride.updateStatus(false);
+		client.setLocation(new Point(0,1));
+		driver.setLocation(new Point(0,1));
 		manager.checkRides();
 		assertFalse(rides.contains(ride));
 		assertEquals(driver.getRide(),null);

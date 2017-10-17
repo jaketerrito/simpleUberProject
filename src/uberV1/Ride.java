@@ -9,9 +9,9 @@ import java.awt.Point;
  */
 public class Ride {
 	private Point destination = null;
+	private Point pickup = null;
 	private Client client = null;
 	private Driver driver = null;
-	private boolean ongoing = false;
 	private double price = -1;
 	private double RATE = 2.5;
 	private double TIME = 10;
@@ -20,17 +20,12 @@ public class Ride {
 		this.destination = destination;
 		this.client = client;
 		price = (client.distance(destination) * RATE);
+		pickup = client.getLocation();
 	}
 	
 	public void addDriver(Driver driver){
 		this.driver = driver;
 		price = (driver.distance(client.getLocation()) + client.distance(destination)) * RATE;
-		ongoing = true;
-	}
-	
-	
-	public void updateStatus(boolean ongoing){
-		this.ongoing = ongoing;
 	}
 	
 	public Driver getDriver(){
@@ -41,8 +36,21 @@ public class Ride {
 		return client;
 	}
 	
-	public boolean getStatus(){
-		return ongoing;
+	public Point getPickup(){
+		return pickup;
+	}
+	
+	public String getStatus(){
+		if(client.getLocation().equals(destination)){
+			return "DONE";
+		}
+		if(driver.getLocation().equals(pickup)){
+			return "PICKUP"; 
+		}
+		if(!(driver.getLocation().equals(client.getLocation()))){
+			return "COMING";
+		}
+		return "ENROUT";
 	}
 	
 	public double estimateWait(){
@@ -70,6 +78,5 @@ public class Ride {
 	public void endRide(){
 		driver.setRide(null);
 		client.setRide(null);
-		ongoing = false;
 	}
 }
