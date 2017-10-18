@@ -2,12 +2,17 @@ package uberV1;
 import java.util.*;
 import java.awt.Point;
 
+/**
+ * A driver working for the uber service.
+ * @author jterrito
+ *
+ */
 public class Driver extends User{
 	private boolean available = true;
 	private ArrayList<Double> ratings = new ArrayList<Double>();
 	
 	/**
-	 * Initializes driver at a random location.
+	 * Initializes driver at a random location with a list of ratings.
 	 * @param manager the manager for this driver.
 	 * @param name the driver's name.
 	 * @param balance the driver's balance.
@@ -19,14 +24,21 @@ public class Driver extends User{
             	this.ratings = ratings;
             }
 	}
-        
-        public Driver(Manager manager, String name, double balance, double rating){
+    
+	/**
+	 * Initializes driver at a random location with a single rating.
+	 * @param manager the manager for this driver.
+	 * @param name the driver's name.
+	 * @param balance the driver's balance.
+	 * @param rating the driver's rating.
+	 */
+    public Driver(Manager manager, String name, double balance, double rating){
             super(manager,name,balance);
             ratings.add(rating);
 	}
 	
 	/**
-	 * Initializes Driver at a specified location.
+	 * Initializes Driver at a specified location with a list of ratings.
 	 * @param manager the manager for this driver.
 	 * @param name the driver's name.
 	 * @param balance the driver's balance.
@@ -42,7 +54,8 @@ public class Driver extends User{
 	
 	/**
 	 * Passed a ride request with input method to determine driver's response to request.
-	 * @param ride the current ride to view
+	 * @param ride The current ride being requested.
+	 * @param scanner The input for driver's response.
 	 * @return whether or not the ride was accepted.
 	 */
 	public boolean handleRequest(Ride ride, Scanner scanner){
@@ -50,15 +63,18 @@ public class Driver extends User{
 			System.out.printf("Driver already has a ride, something is wrong in this code.");
 			return false;
 		}
-		System.out.printf("%s: Do you accept ride?(y/n)\n",name);
-		//THIS questrion needs to be better
-		if(scanner.nextLine().equals("y")){
-			available = false;
-			ride.addDriver(this);
-			currentRide = ride;
-			return true;
-		} 
-		// maybe add feature in case it isn't "n"
+		System.out.printf("%s: %s is requesting a ride from (%.0f,%.0f) to (%.0f,%.0f). Do you accept ride?(y/n)\n",name,ride.getClient().getName(),ride.getPickup().getX(),ride.getPickup().getY(),ride.getDestination().getX(),ride.getDestination().getY());
+		String ans = scanner.nextLine();
+		while(!ans.equals("n")){
+			if(ans.equals("y")){
+				available = false;
+				ride.addDriver(this);
+				currentRide = ride;
+				return true;
+			}
+			System.out.printf("%s: Response must be 'y' or 'n'.\n",name);
+			ans = scanner.nextLine();
+		}
 		return false;
 	}
 	

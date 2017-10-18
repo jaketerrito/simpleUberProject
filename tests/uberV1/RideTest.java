@@ -35,12 +35,4 @@ public class RideTest {
 		assertEquals(ride.estimateTravelTime(),30,.01);
 	}
 
-	@Test
-	public void testInfo() {
-		Ride ride = new Ride(new Point(0,0),new Client(null,"Jake",0,new Point(0,1)));
-		assertEquals(ride.info(), "Client: Jake \nPrice: 2.50 \nTime to Destination: 10.00\n");
-		Driver driver = new Driver(null, "Max", 0, null, new Point(0,2));
-		ride.addDriver(driver);
-		assertEquals(ride.info(), "Driver: Max \nClient: Jake \nPrice: 5.00 \n Estimated Wait 10.00 \nTime to Destination: 10.00\n");
-	}
 }

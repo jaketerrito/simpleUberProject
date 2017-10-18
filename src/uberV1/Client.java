@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.Scanner;
 
 /**
- * The client using the uber app.
+ * A client using the uber service.
  * @author jterrito
  *
  */
@@ -12,9 +12,9 @@ public class Client extends User{
 	
     /**
      * Initializes client at random location.
-     *  @param manager the manager for this client.
-     *  @param name the client's name.
-     *  @param balance the client's initial balance.
+     *  @param manager The manager for this client.
+     *  @param name The client's name.
+     *  @param balance The client's initial balance.
      */
 	public Client(Manager manager, String name, double balance){
            super(manager,name,balance);
@@ -33,7 +33,8 @@ public class Client extends User{
 	
 	/**
 	 * Requests a ride.
-	 * @param destination the desired destination for the ride.
+	 * @param destination The desired destination for the ride.
+	 * @return Whether or not the request succeeded.
 	 */
 	public boolean request(Point destination){
 		if(destination.getY() > GRIDMAX || destination.getX() > GRIDMAX || destination.getX() < 0 || destination.getY() < 0){
@@ -47,10 +48,23 @@ public class Client extends User{
 		return true;
 	}
 	
+	/**
+	 * Rates a driver.
+	 * @param driver The driver being rated.
+	 * @param scanner The input method for the client's response.
+	 */
 	public void rate(Driver driver,Scanner scanner){
-		System.out.printf("Please give a rating for your driver, %s.(0.0-5.0)\n",driver.getName());
-		//make sure that it is a valid response
-		driver.addRating(scanner.nextDouble());
+		String ans;
+		while(true){
+			try{
+				System.out.printf("%s: Please give a rating for your driver, %s.(0.0-5.0)\n",name,driver.getName());
+				ans = scanner.nextLine();
+				if(Double.valueOf(ans) >= 0 && Double.valueOf(ans) <= 5){
+					driver.addRating(Double.valueOf(ans));
+					return;
+				}
+			}catch(NumberFormatException e){}
+		}
 	}
 	
 }
