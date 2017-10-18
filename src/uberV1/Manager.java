@@ -12,10 +12,17 @@ public class Manager {
 	private ArrayList<Ride> rides = new ArrayList<Ride>();
 	private Scanner scanner = new Scanner(System.in);
 	protected Point tempPoint; //for sorting
+	private double rate = 1;
+	private double time = 1;
 	/**
 	 * Initializes manager with out any users.
 	 */
 	public Manager(){}
+	
+	public Manager(double rate, double time){
+		this.rate = rate;
+		this.time = time;
+	}
 	
 	/**
 	 * Initializes manager with special input.
@@ -82,7 +89,7 @@ public class Manager {
 	 * @return Returns the ride that the client requested.
 	 */
 	public Ride receiveRequest(Client client, Point destination){
-		Ride ride = new Ride(destination, client);
+		Ride ride = new Ride(destination, client,rate, time);
 		
 		//creates queue of available drivers sorted by distance from the client
 		Driver driver;
@@ -140,8 +147,10 @@ public class Manager {
 		for(Ride ride: rides){
 			switch(ride.getStatus()){
 			case "DONE":   toRemove.add(ride);
-						   System.out.printf("%s: Driver has arrived.\n",ride.getClient().getName());
+						   System.out.printf("%s: You have arrived at your destination.\n",ride.getClient().getName());
 						   getRating(ride);
+						   System.out.printf("Trip Complete: From (%.0f,%.0f) to (%.0f,%.0f), costing %.2f.\n",ride.getPickup().getX(),ride.getPickup().getY(),ride.getDestination().getX(),ride.getDestination().getY(),ride.getPrice());
+						   System.out.printf("Client, %s, new balance is %.2f. Driver, %s, new balance is %.2f and rating is %.0f.\n", ride.getClient().getName(),ride.getClient().getBal(),ride.getDriver().getName(),ride.getDriver().getBal(),ride.getDriver().getRating());
 						   ride.endRide();
 						   break;
 			case "COMING": System.out.printf("%s: Driver on the way, estimated wait is %.2f.\n",ride.getClient().getName(),ride.estimateWait());

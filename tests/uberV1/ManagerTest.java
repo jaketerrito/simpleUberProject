@@ -13,15 +13,9 @@ public class ManagerTest {
 	public void testReceiveRequest() {
 		Scanner scanner = new Scanner("n\ny\n");
 		Manager manager = new Manager(scanner);
-		ArrayList<Double> ratings = new ArrayList<Double>();
-		ratings.add(3.0);
-		ratings.add(4.0);
-		ratings.add(2.0);
-		Driver a = new Driver(manager,"Kyle",0,ratings, new Point(300,0));
-		Driver b = new Driver(manager,"Ellen",0,ratings, new Point(0,0)); //rating 3.0
-		ratings = new ArrayList<Double>();
-		ratings.add(5.0);
-		Driver c = new Driver(manager,"Riley",0,ratings, new Point(0,0)); //rating 5.0
+		Driver a = new Driver(manager,"Kyle",0,3, new Point(300,0));
+		Driver b = new Driver(manager,"Ellen",0,3, new Point(0,0)); //rating 3.0
+		Driver c = new Driver(manager,"Riley",0,5, new Point(0,0)); //rating 5.0
 		Client d = new Client(manager,"Ruby",500,new Point(0,1));
 		manager.addClient(d);
 		manager.addDriver(a);
@@ -39,22 +33,20 @@ public class ManagerTest {
 	public void testTransactionGood() {
 		Manager manager = new Manager();
 		Client client = new Client(manager, "Avery", 23, new Point(0,0));
-		Ride ride = new Ride(new Point(0,1),client);
-		ArrayList<Double> ratings = new ArrayList<Double>();
-		Driver driver = new Driver(manager, "KARL", 0, ratings, new Point(0,2));
+		Ride ride = new Ride(new Point(0,1),client,1,1);
+		Driver driver = new Driver(manager, "KARL", 0, 0, new Point(0,2));
 		ride.addDriver(driver);
 		assertTrue(manager.transaction(ride));
-		assertEquals(client.getBal(), 15.5,.1);
-		assertEquals(driver.getBal(), 7.5*.75,.1);
+		assertEquals(client.getBal(), 20,.1);
+		assertEquals(driver.getBal(), 2.25,.1);
 	}
 	
 	@Test
 	public void testTransactionBad() {
 		Manager manager = new Manager();
 		Client client = new Client(manager, "Avery", 4, new Point(0,0));
-		Ride ride = new Ride(new Point(0,1),client);
-		ArrayList<Double> ratings = new ArrayList<Double>();
-		Driver driver = new Driver(manager, "KARL", 0, ratings, new Point(0,2));
+		Ride ride = new Ride(new Point(0,1),client,2.5,2.5);
+		Driver driver = new Driver(manager, "KARL", 0, 0, new Point(0,2));
 		ride.addDriver(driver);
 		assertFalse(manager.transaction(ride));
 		assertEquals(client.getBal(), 4.0,.1);
@@ -64,10 +56,9 @@ public class ManagerTest {
 	@Test
 	public void testCheckRides() {
 		Client client = new Client(null, "Avery", 4, new Point(0,0));
-		Ride ride = new Ride(new Point(0,1),client);
+		Ride ride = new Ride(new Point(0,1),client,2.5,2.5);
 		client.setRide(ride);
-		ArrayList<Double> ratings = new ArrayList<Double>();
-		Driver driver = new Driver(null, "KARL", 0, ratings, new Point(0,2));
+		Driver driver = new Driver(null, "KARL", 0, 1, new Point(0,2));
 		ride.addDriver(driver);
 		driver.setRide(ride);
 		ArrayList<Ride> rides = new ArrayList<Ride>();
@@ -84,16 +75,15 @@ public class ManagerTest {
 		assertFalse(rides.contains(ride));
 		assertEquals(driver.getRide(),null);
 		assertEquals(client.getRide(),null);
-		assertEquals(driver.getRating(),4.0,.1);
+		assertEquals(driver.getRating(),2.5,.1);
 	}
 
 	@Test
 	public void testGetRating() {
 		Client client = new Client(null, "Avery", 4, new Point(0,0));
-		Ride ride = new Ride(new Point(0,1),client);
+		Ride ride = new Ride(new Point(0,1),client,1,1);
 		client.setRide(ride);
-		ArrayList<Double> ratings = new ArrayList<Double>();
-		Driver driver = new Driver(null, "KARL", 0, ratings, new Point(0,2));
+		Driver driver = new Driver(null, "KARL", 0, 2, new Point(0,2));
 		ride.addDriver(driver);
 		driver.setRide(ride);
 		Scanner scanner = new Scanner("2.0");

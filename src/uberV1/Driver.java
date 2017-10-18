@@ -8,22 +8,7 @@ import java.awt.Point;
  *
  */
 public class Driver extends User{
-	private boolean available = true;
 	private ArrayList<Double> ratings = new ArrayList<Double>();
-	
-	/**
-	 * Initializes driver at a random location with a list of ratings.
-	 * @param manager the manager for this driver.
-	 * @param name the driver's name.
-	 * @param balance the driver's balance.
-	 * @param ratings the driver's ratings.
-	 */
-	public Driver(Manager manager, String name, double balance, ArrayList<Double> ratings){
-            super(manager,name,balance);
-            if(ratings != null){
-            	this.ratings = ratings;
-            }
-	}
     
 	/**
 	 * Initializes driver at a random location with a single rating.
@@ -38,18 +23,16 @@ public class Driver extends User{
 	}
 	
 	/**
-	 * Initializes Driver at a specified location with a list of ratings.
+	 * Initializes Driver at a specified location with a single rating.
 	 * @param manager the manager for this driver.
 	 * @param name the driver's name.
 	 * @param balance the driver's balance.
-	 * @param ratings the driver's ratings.
+	 * @param rating the driver's rating.
 	 * @param location the driver's starting location.
 	 */
-	public Driver(Manager manager, String name, double balance, ArrayList<Double> ratings, Point location){
+	public Driver(Manager manager, String name, double balance, double rating, Point location){
            super(manager,name,balance,location);
-           if(ratings != null){
-           	this.ratings = ratings;
-           }
+           ratings.add(rating);
     }
 	
 	/**
@@ -67,7 +50,6 @@ public class Driver extends User{
 		String ans = scanner.nextLine();
 		while(!ans.equals("n")){
 			if(ans.equals("y")){
-				available = false;
 				ride.addDriver(this);
 				currentRide = ride;
 				return true;
@@ -79,7 +61,10 @@ public class Driver extends User{
 	}
 	
 	public boolean isAvailable(){
-		return available;
+		if(currentRide != null){
+			return false;
+		}
+		return true;
 	}
 	
 	/**

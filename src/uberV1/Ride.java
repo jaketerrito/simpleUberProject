@@ -13,18 +13,20 @@ public class Ride {
 	private Client client = null;
 	private Driver driver = null;
 	private double price = -1;
-	private double RATE = 1;
-	private double TIME = 1;
+	private double rate;
+	private double time;
 	
 	/**
 	 * Initializes ride for client with given destination. 
 	 * @param destination The destination for this ride.
 	 * @param client The user requesting the ride.
 	 */
-	public Ride(Point destination, Client client){
+	public Ride(Point destination, Client client, double rate, double time){
+		this.rate = rate;
+		this.time = time;
 		this.destination = destination;
 		this.client = client;
-		price = (client.distance(destination) * RATE);
+		price = (client.distance(destination) * rate);
 		pickup = client.getLocation();
 	}
 	
@@ -34,7 +36,7 @@ public class Ride {
 	 */
 	public void addDriver(Driver driver){
 		this.driver = driver;
-		price = (driver.distance(client.getLocation()) + client.distance(destination)) * RATE;
+		price = (driver.distance(client.getLocation()) + client.distance(destination)) * rate;
 	}
 	
 	public Driver getDriver(){
@@ -75,7 +77,7 @@ public class Ride {
 	 * @return
 	 */
 	public double estimateWait(){
-		return driver.distance(client.getLocation()) * TIME;
+		return driver.distance(client.getLocation()) * time;
 	}
 	
 	/**
@@ -83,7 +85,7 @@ public class Ride {
 	 * @return
 	 */
 	public double estimateTravelTime(){
-		return client.distance(destination) * TIME;
+		return client.distance(destination) * time;
 	}
 	
 	public double getPrice(){

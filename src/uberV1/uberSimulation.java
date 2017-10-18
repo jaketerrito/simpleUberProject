@@ -1,5 +1,7 @@
 package uberV1;
 import java.awt.Point;
+import java.io.*;
+import java.util.*;
 import java.lang.NullPointerException;
 import java.util.ArrayList;
 /**
@@ -8,28 +10,80 @@ import java.util.ArrayList;
  *
  */
 public class uberSimulation {
+	private static Manager manager;
+	
+	public static Driver toDriver(String line){
+		Scanner scanner = new Scanner(line);
+		scanner.next();
+		Point point = null;
+		String name = scanner.next();
+		double balance = scanner.nextDouble();
+		double rating  = scanner.nextDouble();
+		if(scanner.hasNextDouble()){
+			point = new Point(scanner.nextInt(),scanner.nextInt());
+		}
+		scanner.close();
+		if(point != null){
+			return new Driver(manager,name,balance,rating,point);
+		}
+		return new Driver(manager,name,balance,rating);
+	}
+	
+	public static Client toClient(String line){
+		Scanner scanner = new Scanner(line);
+		scanner.next();
+		Point point = null;
+		String name = scanner.next();
+		double balance = scanner.nextDouble();
+		if(scanner.hasNextDouble()){
+			point = new Point(scanner.nextInt(),scanner.nextInt());
+		}
+		scanner.close();
+		if(point != null){
+			return new Client(manager,name,balance,point);
+		}
+		return new Client(manager,name,balance);
+	}
+	
 	public static void main(String[] args){
-		Manager manager = new Manager();
-		manager.addClient(new Client(manager,"Jeff",3000));
-        manager.addClient(new Client(manager,"Clyde",1234));
-        manager.addClient(new Client(manager,"Syd",50));
-		manager.addDriver(new Driver(manager,"Charlene",0,1.0));
-		manager.addDriver(new Driver(manager,"Willy",0,5.0));
-		manager.addDriver(new Driver(manager,"Amber",0,2.3));
-		manager.addDriver(new Driver(manager,"Arnold",0,1.2));
-		manager.addDriver(new Driver(manager,"Carl",0,3.4));
-		for(String name: manager.getClients().keySet()){
-			Client client = manager.getClient(name);
-			if(client.request(new Point(150,150))){
-				manager.checkRides();
-				Ride ride = client.getRide();
-				Driver driver = ride.getDriver();
-				driver.setLocation(ride.getPickup());
-				manager.checkRides();
-				driver.setLocation(ride.getDestination());
-				client.setLocation(ride.getDestination());
-				manager.checkRides();
-			}
-		}		
+		FileReader fileReader;
+		BufferedReader bufferedReader;
+	    Scanner scanner;
+	    String temp;
+		try{
+			fileReader = new FileReader("resources/sim.txt");
+		    bufferedReader = new BufferedReader(fileReader);
+		    String line = bufferedReader.readLine();
+		    scanner = new Scanner(line);
+		    manager = new Manager(scanner.nextDouble(),scanner.nextDouble());
+	        while((line = bufferedReader.readLine()) != null) {
+	        	System.out.println(line);
+	        	scanner = new Scanner(line);
+	        	temp = scanner.next();
+	        	if(temp.equals("Driver")){
+	        		manager.addDriver(toDriver(line));
+	        	}else if(temp.equals("Client")){
+	        		manager.addClient(toClient(line));
+	        	}else if(temp.equals("Request")){
+	        		Client client = manager.getClient(scanner.next());
+	        		//could add random requests!
+	        		if(client.request(new Point(scanner.nextInt(),scanner.nextInt()))){
+	        			manager.checkRides();
+						Ride ride = client.getRide();
+						Driver driver = ride.getDriver();
+						driver.setLocation(ride.getPickup());
+						manager.checkRides();
+						driver.setLocation(ride.getDestination());
+						client.setLocation(ride.getDestination());
+						manager.checkRides();
+	        		}
+	        	}else{
+	        		System.out.println("FORMAT ERROR");
+	        	}
+	        }
+	        bufferedReader.close(); 
+		}catch (Exception e){
+			e.printStackTrace(System.out);
+		}	
 	}
 }
