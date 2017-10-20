@@ -78,18 +78,4 @@ public class ManagerTest {
 		assertEquals(driver.getRating(),2.5,.1);
 	}
 
-	@Test
-	public void testGetRating() {
-		Client client = new Client(null, "Avery", 4, new Point(0,0));
-		Ride ride = new Ride(new Point(0,1),client,1,1);
-		client.setRide(ride);
-		Driver driver = new Driver(null, "KARL", 0, 2, new Point(0,2));
-		ride.addDriver(driver);
-		driver.setRide(ride);
-		Scanner scanner = new Scanner("2.0");
-		Manager manager = new Manager(scanner);
-		manager.getRating(ride);
-		assertEquals(driver.getRating(),2.0,.1);
-	}
-
 }

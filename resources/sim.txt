@@ -1,4 +1,4 @@
-1 1
+.5 .05
 Driver Carl 2000 1 12 32
 Driver Riley 2300 1 12 32
 Driver Jeff 0 2 123 34

@@ -1,6 +1,11 @@
--ADD more tests
--simulation!
--input from text file
 -randomized trips
--MONGODB! for 5 trip
+-logging correctly?
 -user cancels before driver arrives?
+-update java docs
+-write explanation for ubereats
+
+SIM
+PRICERATE TRAVEL RATE
+Driver name bal rating (optional)x y
+Client name bal (optional)x y
+Request clientname x y

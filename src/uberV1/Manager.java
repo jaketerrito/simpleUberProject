@@ -135,7 +135,7 @@ public class Manager {
 			return false;
 		}
 		ride.getClient().updateBal(-1 * ride.getPrice());
-        System.out.printf("%s: Account charged, %.2f.\n",ride.getClient().getName(),ride.getPrice());
+        System.out.printf("%s: Account charged, $%.2f.\n",ride.getClient().getName(),ride.getPrice());
 		ride.getDriver().updateBal(ride.getPrice() * .75);
 		return true;
 	}
@@ -148,16 +148,16 @@ public class Manager {
 			switch(ride.getStatus()){
 			case "DONE":   toRemove.add(ride);
 						   System.out.printf("%s: You have arrived at your destination.\n",ride.getClient().getName());
-						   getRating(ride);
+						   ride.getClient().rate(ride.getDriver(), scanner);
 						   System.out.printf("Trip Complete: From (%.0f,%.0f) to (%.0f,%.0f), costing %.2f.\n",ride.getPickup().getX(),ride.getPickup().getY(),ride.getDestination().getX(),ride.getDestination().getY(),ride.getPrice());
 						   System.out.printf("Client, %s, new balance is %.2f. Driver, %s, new balance is %.2f and rating is %.0f.\n", ride.getClient().getName(),ride.getClient().getBal(),ride.getDriver().getName(),ride.getDriver().getBal(),ride.getDriver().getRating());
 						   ride.endRide();
 						   break;
-			case "COMING": System.out.printf("%s: Driver on the way, estimated wait is %.2f.\n",ride.getClient().getName(),ride.estimateWait());
+			case "COMING": System.out.printf("%s: Driver on the way, estimated wait is %.2f minutes.\n",ride.getClient().getName(),ride.estimateWait());
 						   break;
-			case "PICKUP": System.out.printf("%s: Driver has arrived, travel time is %.2f.\n", ride.getClient().getName(),ride.estimateTravelTime());
+			case "PICKUP": System.out.printf("%s: Driver has arrived, travel time is %.2f minutes.\n", ride.getClient().getName(),ride.estimateTravelTime());
 						   break;
-			case "ENROUT": System.out.printf("%s: You are on your way, travel time is %.2f.\n", ride.getClient().getName(),ride.estimateTravelTime());
+			case "ENROUT": System.out.printf("%s: You are on your way, travel time is %.2f minutes.\n", ride.getClient().getName(),ride.estimateTravelTime());
 						   break;
 			default:       break;
 			}
@@ -165,11 +165,5 @@ public class Manager {
 		for(Ride ride: toRemove){
 			rides.remove(ride);
 		}
-	}
-	/**
-	 * Prompts user to rate the driver.
-	 */
-	public void getRating(Ride ride){
-		ride.getClient().rate(ride.getDriver(), scanner);
 	}
 }
