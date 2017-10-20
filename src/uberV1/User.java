@@ -15,6 +15,7 @@ public class User{
    protected Manager manager;
    protected Ride currentRide = null;
    protected int GRIDMAX = 300;
+   
    /**
     * A user of the uber service, given random location.
     * @param manager The manager handling this user.
@@ -26,7 +27,7 @@ public class User{
       this.name = name;
       this.balance = balance;
       Random rand = new Random();
-      location = new Point(rand.nextInt(GRIDMAX),rand.nextInt(GRIDMAX));
+      location = new Point(rand.nextInt(GRIDMAX+1),rand.nextInt(GRIDMAX+1));
    }
    /**
     * A user of the uber service.
@@ -36,10 +37,16 @@ public class User{
     * @param location The user's location.
     */
    public User(Manager manager, String name, double balance, Point location){
-      this.manager = manager;
+      if(location.getX() > GRIDMAX || location.getY() > GRIDMAX || location.getX() < 0 || location.getY() < 0){
+    	  System.out.printf("Location for %s out of bounds, assigning random location.\n",name);
+          Random rand = new Random();
+          this.location = new Point(rand.nextInt(GRIDMAX+1),rand.nextInt(GRIDMAX+1));
+      }else{
+          this.location = location;
+      }
+	  this.manager = manager;
       this.name = name;
       this.balance = balance;
-      this.location = location;
    }
    
    public String getName(){

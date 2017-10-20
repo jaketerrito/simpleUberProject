@@ -1,13 +1,21 @@
-.5 .05
-Driver Carl 2000 1 12 32
-Driver Riley 2300 1 12 32
-Driver Jeff 0 2 123 34
-Driver Kyle 30 3 123 2
-Client Luke 3213
-Client Kim 32 11 23
-Client Jill 10000 
-Request Luke 23 32
-Request Kim 34 23
-Request Luke 32 300
-Request Jill 1 1
-Request Jill 23 54
+.10 .05
+Driver Carl 0 1
+Driver Riley 0 1
+Driver Jeff 0 2
+Driver Kyle 0 3
+Driver Will 0 5 301 31
+Driver Jim 0 3.2
+Driver Sally 0 2.8
+Driver Jane 0 3.9
+Driver Sarah 0 4.3 200 150
+Driver Jake 0 5 150 150
+Client Sean 1500
+Client Luke 1500
+Client Kim 0
+Client Jill 1500 
+Client Jamie 1500 50 50
+Request Sean 23 32
+Request Luke 34 23
+Request Kim 32 300
+Request Jamie 23 54
+Request Jill

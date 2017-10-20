@@ -1,0 +1,46 @@
+Jacob Territo
+CSC305 Project 
+https://github.com/jaketerrito/simpleUberProject
+
+Running the simulation:
+	sim.txt is what the simulation runs off of. The first line must be the pricerate and timerate,but after that order doesn't matter.
+	Format:
+		PRICERATE TIMERATE
+		Driver name bal rating [x y]
+		Client name bal [x y]
+		Request clientname [x y]
+	
+	input.txt By default this is where the simulation gets its user input from. Takes "y" or "n" as driver responses to 
+	ride request, rating 0.0 to 5.0 for client rating of driver. The program will disregard invalid input so it 
+	should always work as long as each request has enough "n"'s for every driver or has a "y" followed by a rating.
+	Format:
+		y
+		n
+		rating
+	
+	Output given by simulation is stored in log.txt in the resources folder, along with final state information in finalOutput.txt.
+	
+	In order to switch input and output to the console a few lines of code need to be commented/uncommented.
+	Instructions provided within uberSimulation.java.
+
+
+
+UberEats Reusability:
+	In order to implement uberEats from my version of uber only 3 simple
+	functions would need to be added and 2 existing print statements
+	would have to be updated. First, the client would need a requestMeal function
+	that would pass the location of the restaurant as well as their order.
+	This would be sent to the Manager's receiveRequest function just like a normal 
+	ride. In order for this to work, the Ride class would need another constructor 
+	that is passed the location of the restaurant(in place of the client's
+	destination) as well as an the client's order. This constructor would simply set
+	the pickup location to the restraunt's location and the final destination to the 
+	client's location, having the driver go pickup the food and bring it to the Client.
+	Assuming that the driver is just calling in the order at the restaurant, ride 
+	would also have a getOrder function to allow the driver to see what to order.
+	With these new functions in place the Driver's request handling function as well as 
+	the Manager's checkRides function(that updates user's on their order's status) would
+	need to be updated to print different information for uberEats.
+
+
+

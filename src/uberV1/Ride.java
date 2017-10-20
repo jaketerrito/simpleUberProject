@@ -20,6 +20,8 @@ public class Ride {
 	 * Initializes ride for client with given destination. 
 	 * @param destination The destination for this ride.
 	 * @param client The user requesting the ride.
+	 * @param rate Price rate used for price calculation.
+	 * @param time Time rate used for time calculation.
 	 */
 	public Ride(Point destination, Client client, double rate, double time){
 		this.rate = rate;
@@ -96,7 +98,7 @@ public class Ride {
 	}
 
 	/**
-	 * Removes refereneces to this ride by client and driver.
+	 * Removes references to this ride by client and driver.
 	 */
 	public void endRide(){
 		driver.setRide(null);

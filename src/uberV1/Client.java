@@ -53,7 +53,7 @@ public class Client extends User{
 	 * @param driver The driver being rated.
 	 * @param scanner The input method for the client's response.
 	 */
-	public void rate(Driver driver,Scanner scanner){
+	public double rate(Driver driver,Scanner scanner){
 		String ans;
 		while(true){
 			try{
@@ -61,7 +61,7 @@ public class Client extends User{
 				ans = scanner.nextLine();
 				if(Double.valueOf(ans) >= 0 && Double.valueOf(ans) <= 5){
 					driver.addRating(Double.valueOf(ans));
-					return;
+					return Double.valueOf(ans);
 				}
 			}catch(NumberFormatException e){}
 		}

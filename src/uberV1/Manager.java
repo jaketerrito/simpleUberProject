@@ -15,17 +15,34 @@ public class Manager {
 	private double rate = 1;
 	private double time = 1;
 	/**
-	 * Initializes manager with out any users.
+	 * Initializes manager without any users using the default price rate(1) and time rate(1) as well as input from command line.
 	 */
 	public Manager(){}
 	
+	/**
+	 * Initializes manager without any users, using the given price rate and time rate as well as input from the command line.
+	 * @param rate Price Rate to be used in price calculations.
+	 * @param time Time Rate to be used in time calculations.
+	 */
 	public Manager(double rate, double time){
 		this.rate = rate;
 		this.time = time;
 	}
 	
 	/**
-	 * Initializes manager with special input.
+	 * Initializes manager without any users. Uses given price rate, time rate, and input method.
+	 * @param rate Price rate to be used in price calculations.
+	 * @param time Time rate to be used in time calculations.
+	 * @param scanner Input method for user responses.
+	 */
+	public Manager(double rate, double time, Scanner scanner){
+		this.rate = rate;
+		this.time = time;
+		this.scanner = scanner;
+	}
+	
+	/**
+	 * Initializes manager with given input.
 	 * @param scanner Source for input.
 	 */
 	public Manager(Scanner scanner){
@@ -44,10 +61,7 @@ public class Manager {
 		this.clients = clients;
 		this.scanner = scanner;
 	}
-	/**
-	 * 
-	 * @param driver
-	 */
+
 	public void addDriver(Driver driver){
 		drivers.put(driver.getName(),driver);
 	}
@@ -62,6 +76,10 @@ public class Manager {
 	
 	public HashMap<String,Client> getClients(){
 		return clients;
+	}
+	
+	public HashMap<String,Driver> getDrivers(){
+		return drivers;
 	}
 	
 	public Driver getDriver(String name){
@@ -103,14 +121,14 @@ public class Manager {
 			list.add(driver);
 		}
 		if(list.size() == 0){
-			System.out.printf("%s: No available drivers.\n",client.getName());
+			System.out.printf("%s: No available drivers.\n\n",client.getName());
 			return null;
 		}
 		
 		//requests everyone in queue
 		while(!(list.poll().handleRequest(ride, scanner))){
 			if(list.size() == 0){
-				System.out.printf("%s: No available drivers.\n",client.getName());
+				System.out.printf("%s: No available drivers.\n\n",client.getName());
 				return null;
 			}
 		}
@@ -148,9 +166,9 @@ public class Manager {
 			switch(ride.getStatus()){
 			case "DONE":   toRemove.add(ride);
 						   System.out.printf("%s: You have arrived at your destination.\n",ride.getClient().getName());
-						   ride.getClient().rate(ride.getDriver(), scanner);
+						   System.out.printf("%s: %s has given you a rating of %.1f.\n", ride.getDriver().getName(),ride.getClient().getName(),ride.getClient().rate(ride.getDriver(), scanner));
 						   System.out.printf("Trip Complete: From (%.0f,%.0f) to (%.0f,%.0f), costing %.2f.\n",ride.getPickup().getX(),ride.getPickup().getY(),ride.getDestination().getX(),ride.getDestination().getY(),ride.getPrice());
-						   System.out.printf("Client, %s, new balance is %.2f. Driver, %s, new balance is %.2f and rating is %.0f.\n", ride.getClient().getName(),ride.getClient().getBal(),ride.getDriver().getName(),ride.getDriver().getBal(),ride.getDriver().getRating());
+						   System.out.printf("Client, %s, new balance is $%.2f. Driver, %s, new balance is $%.2f and rating is %.1f.\n\n", ride.getClient().getName(),ride.getClient().getBal(),ride.getDriver().getName(),ride.getDriver().getBal(),ride.getDriver().getRating());
 						   ride.endRide();
 						   break;
 			case "COMING": System.out.printf("%s: Driver on the way, estimated wait is %.2f minutes.\n",ride.getClient().getName(),ride.estimateWait());

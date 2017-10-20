@@ -39,7 +39,7 @@ public class Driver extends User{
 	 * Passed a ride request with input method to determine driver's response to request.
 	 * @param ride The current ride being requested.
 	 * @param scanner The input for driver's response.
-	 * @return whether or not the ride was accepted.
+	 * @return Whether or not the ride was accepted.
 	 */
 	public boolean handleRequest(Ride ride, Scanner scanner){
 		if(currentRide != null){
