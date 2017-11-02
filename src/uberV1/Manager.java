@@ -112,7 +112,7 @@ public class Manager {
 		//creates queue of available drivers sorted by distance from the client
 		Driver driver;
 		PriorityQueue<Driver> list = new PriorityQueue<Driver>(new comparator());
-		tempPoint = destination;
+		tempPoint = ride.getPickup();
 		for(String name: drivers.keySet()){
 			driver = drivers.get(name);
 			if(!(driver.isAvailable())){
@@ -148,7 +148,7 @@ public class Manager {
 	 */
 	public boolean transaction(Ride ride){
 		if(ride.getClient().getBal() < ride.getPrice()){
-			System.out.printf("%s: Insufficient funds, ride cancelled.\n",ride.getClient().getName());
+			System.out.printf("%s: Insufficient funds, ride cancelled.\n\n",ride.getClient().getName());
                         ride.endRide();
 			return false;
 		}

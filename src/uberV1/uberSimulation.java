@@ -10,9 +10,7 @@ import java.util.*;
 public class uberSimulation {
 	private static Manager manager;
 	/**
-	 * Runs the actual simulation taking input from input.txt and outputting to log.txt with 
-	 * final state information stored in finalOutput.txt, switching comments will leave 
-	 * output and input to console.
+	 * Runs the actual simulation based off input.txt 
 	 * @param args 
 	 */
 	public static void main(String[] args) {
@@ -31,20 +29,7 @@ public class uberSimulation {
 		    String line = bufferedReader.readLine();
 		    scanner = new Scanner(line);
 		    
-		    //For using console for input/output.
-		    //manager = new Manager(scanner.nextDouble(),scanner.nextDouble());
-		    
-		    
-		    /*
-		     * For logging with specific inputs only, along with code on line 99.
-		     * Comment out this block and uncomment above line in order to use console for input/output.
-		     */
-		    Scanner input = new Scanner(new File("resources/input.txt"));
-		    manager = new Manager(scanner.nextDouble(),scanner.nextDouble(), input);
-		    PrintStream norm = System.out;
-		    PrintStream out = new PrintStream(new FileOutputStream("resources/log.txt"));
-		    System.setOut(out);
-		    //end of logging
+		    manager = new Manager(scanner.nextDouble(),scanner.nextDouble());
 		    
 		    while((line = bufferedReader.readLine()) != null) {
 	        	scanner = new Scanner(line);
@@ -95,10 +80,6 @@ public class uberSimulation {
 	        	}
 	        }
 	        bufferedReader.close(); 
-	        
-	        //Only if logging to file, comment out for console input/output.
-	        out.close();
-	        System.setOut(norm);
 	        
 	        //For information on state at end of simulation.
 	        PrintStream finalLog = new PrintStream(new File("resources/finalOutput.txt"));

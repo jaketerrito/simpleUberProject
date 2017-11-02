@@ -46,6 +46,7 @@ public class Driver extends User{
 			System.out.printf("Driver already has a ride, something is wrong in this code.");
 			return false;
 		}
+		System.out.printf("%s: You're at (%.0f,%.0f).\n",name,location.getX(),location.getY());
 		System.out.printf("%s: %s is requesting a ride from (%.0f,%.0f) to (%.0f,%.0f). Do you accept ride?(y/n)\n",name,ride.getClient().getName(),ride.getPickup().getX(),ride.getPickup().getY(),ride.getDestination().getX(),ride.getDestination().getY());
 		String ans = scanner.nextLine();
 		while(!ans.equals("n")){

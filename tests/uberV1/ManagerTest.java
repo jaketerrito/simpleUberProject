@@ -11,21 +11,26 @@ public class ManagerTest {
 
 	@Test
 	public void testReceiveRequest() {
-		Scanner scanner = new Scanner("n\ny\n");
+		System.out.println("testRecieved");
+		Scanner scanner = new Scanner("y");
 		Manager manager = new Manager(scanner);
 		Driver a = new Driver(manager,"Kyle",0,3, new Point(300,0));
-		Driver b = new Driver(manager,"Ellen",0,3, new Point(0,0)); //rating 3.0
+		Driver b = new Driver(manager,"Ellen",0,3, new Point(0,0)); //rating 3.0      
 		Driver c = new Driver(manager,"Riley",0,5, new Point(0,0)); //rating 5.0
-		Client d = new Client(manager,"Ruby",500,new Point(0,1));
-		manager.addClient(d);
+		// driver b and c are the closest but c has a better rating, so c should be chosen
+		Client d = new Client(manager,"Ruby",10000,new Point(0,1));
+		Driver e = new Driver(manager,"Jim",0,3, new Point(300,0));
 		manager.addDriver(a);
 		manager.addDriver(b);
 		manager.addDriver(c);
+		manager.addDriver(e);
+		manager.addClient(d);
 		d.request(new Point(2,2));
 		assertTrue(a.isAvailable());
-		assertTrue(c.isAvailable());
-		assertFalse(b.isAvailable());
-		assertEquals(d.getRide(),b.getRide());
+		assertTrue(b.isAvailable());
+		assertTrue(e.isAvailable());
+		assertFalse(c.isAvailable());
+		assertEquals(d.getRide(),c.getRide());
 	}
 	
 
