@@ -17,4 +17,4 @@ The pricerate and time rate must be on the first line of "sim.txt", but other wi
 When running the simulation you'll be prompted for input responding 'y' or 'n' for whether the driver accepts a trip
 request and providing a rating for drivers from 0 to 5.0.
 
-Project pages can be found [here](jaketerrito.github.io/simpleUberProject).
+The javadocs can be found [here](https://jaketerrito.github.io/simpleUberProject/index.html).
