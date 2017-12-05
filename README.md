@@ -1,6 +1,6 @@
 # simpleUberProject
 A simplified version of uber, mimicking the basic functionality of the uber app.
-Afer complining the source code, the UberSimulation runs from a set of commands given in "sim.txt".
+Afer compiling the source code, the UberSimulation runs from a set of commands given in "sim.txt".
 
 These commands are given in the format:  
      PRICERATE TIMERATE  
